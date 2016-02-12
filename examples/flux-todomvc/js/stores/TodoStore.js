@@ -18,15 +18,18 @@ var CHANGE_EVENT = 'change';
 
 var _todos = {};
 
+function initialise(todos) {
+	_todos = todos;
+}
+
 /**
  * Create a TODO item.
  * @param  {string} text The content of the TODO
  */
-function create(text) {
+function create(id, text) {
   // Hand waving here -- not showing how this interacts with XHR or persistent
   // server-side storage.
   // Using the current timestamp + random number in place of a real id.
-  var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
   _todos[id] = {
     id: id,
     complete: false,
@@ -123,8 +126,9 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case TodoConstants.TODO_CREATE:
       text = action.text.trim();
+	  id = action.id;
       if (text !== '') {
-        create(text);
+        create(id, text);
         TodoStore.emitChange();
       }
       break;
@@ -165,6 +169,11 @@ AppDispatcher.register(function(action) {
       destroyCompleted();
       TodoStore.emitChange();
       break;
+
+	case TodoConstants.TODO_GET_ALL:
+	  initialise(action.todos);
+	  TodoStore.emitChange();
+	  break;
 
     default:
       // no op

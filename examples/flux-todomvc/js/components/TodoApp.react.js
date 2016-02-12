@@ -17,6 +17,7 @@ var Header = require('./Header.react');
 var MainSection = require('./MainSection.react');
 var React = require('react');
 var TodoStore = require('../stores/TodoStore');
+var TodoActions = require('../actions/TodoActions');
 
 /**
  * Retrieve the current TODO data from the TodoStore
@@ -36,6 +37,7 @@ var TodoApp = React.createClass({
 
   componentDidMount: function() {
     TodoStore.addChangeListener(this._onChange);
+    TodoActions.getAllTodos();
   },
 
   componentWillUnmount: function() {
