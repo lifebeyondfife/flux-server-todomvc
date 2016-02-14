@@ -62,26 +62,34 @@ var TodoActions = {
    * Toggle whether a single ToDo is complete
    * @param  {object} todo
    */
-  toggleComplete: function(todo) {
-    var id = todo.id;
-    var actionType = todo.complete ?
-        TodoConstants.TODO_UNDO_COMPLETE :
-        TodoConstants.TODO_COMPLETE;
+	toggleComplete: function(todo) {
+		var id = todo.id;
+		var actionType = todo.complete ?
+			TodoConstants.TODO_UNDO_COMPLETE :
+			TodoConstants.TODO_COMPLETE;
 
-    AppDispatcher.dispatch({
-      actionType: actionType,
-      id: id
-    });
-  },
+		var dispatcher = function() {
+			AppDispatcher.dispatch({
+				actionType: actionType,
+				id: id
+			});
+		};
+
+		TodoApi.putTodo(dispatcher, id, todo.text, !todo.complete);
+	},
 
   /**
    * Mark all ToDos as complete
    */
-  toggleCompleteAll: function() {
-    AppDispatcher.dispatch({
-      actionType: TodoConstants.TODO_TOGGLE_COMPLETE_ALL
-    });
-  },
+	toggleCompleteAll: function() {
+		var dispatcher = function() {
+			AppDispatcher.dispatch({
+				actionType: TodoConstants.TODO_TOGGLE_COMPLETE_ALL
+			});
+		};
+
+		TodoApi.toggleTodos(dispatcher);
+	},
 
   /**
    * @param  {string} id

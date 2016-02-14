@@ -9,6 +9,9 @@ var TodoApi = {
 	},
 	getTodos: function(dispatcher) {
 		HttpRequests.get(dispatcher);
+	},
+	toggleTodos: function(dispatcher) {
+		HttpRequests.toggle(dispatcher);
 	}
 };
 
