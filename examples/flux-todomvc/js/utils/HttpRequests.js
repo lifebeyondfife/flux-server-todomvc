@@ -9,19 +9,19 @@ var apiOptions = function() {
 };
 
 var HttpRequests = {
-	post: function(callback, id, data) {
-		this._requestWithBody(callback, id, data, 'POST');
+	post: function(callback, id, text) {
+		this._requestWithBody(callback, id, text, false, 'POST');
 	},
 
-	put: function(callback, id, data) {
-		this._requestWithBody(callback, id, data, 'PUT');
+	put: function(callback, id, text, complete) {
+		this._requestWithBody(callback, id, text, complete, 'PUT');
 	},
 
-	_requestWithBody: function(callback, id, data, method) {
+	_requestWithBody: function(callback, id, text, complete, method) {
 		var options = apiOptions();
 		options.method = method;
 		options.uri += '/' + id;
-		options.body = {text: data};
+		options.body = {text: text, id: id, complete: complete};
 
 		console.log(options);
 

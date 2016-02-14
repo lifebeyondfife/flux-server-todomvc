@@ -46,13 +46,17 @@ var TodoActions = {
    * @param  {string} id The ID of the ToDo item
    * @param  {string} text
    */
-  updateText: function(id, text) {
-    AppDispatcher.dispatch({
-      actionType: TodoConstants.TODO_UPDATE_TEXT,
-      id: id,
-      text: text
-    });
-  },
+	updateText: function(id, text, complete) {
+		var dispatcher = function() {
+			AppDispatcher.dispatch({
+				actionType: TodoConstants.TODO_UPDATE_TEXT,
+				id: id,
+				text: text
+			});
+		};
+
+		TodoApi.putTodo(dispatcher, id, text, complete);
+	},
 
   /**
    * Toggle whether a single ToDo is complete
