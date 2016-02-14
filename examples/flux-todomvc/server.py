@@ -31,8 +31,8 @@ def post_or_put_todo(id):
 	with open('todos.json', 'r') as file:
 		todos = json.loads(file.read())
 
-	text = json.loads(request.data.decode())['text']
-	todos[id] = {'text': text, 'complete': False}
+	todo = json.loads(request.data.decode())
+	todos[id] = {'text': todo['text'], 'complete': todo['complete']}
 
 	with open('todos.json', 'w') as file:
 		file.write(json.dumps(todos, indent=4, separators=(',', ': ')))
