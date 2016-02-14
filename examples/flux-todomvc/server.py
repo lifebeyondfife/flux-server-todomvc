@@ -42,6 +42,24 @@ def post_or_put_todo(id):
 					headers={'Cache-Control': 'no-cache', 'Access-Control-Allow-Origin': '*'})
 
 
+@app.route('/api/todos/toggle', methods=['POST'])
+def toggle_todos():
+	with open('todos.json', 'r') as file:
+		todos = json.loads(file.read())
+
+	complete = False if all(v['complete'] for v in todos.values()) else True
+
+	for key in todos.keys():
+		todos[key]['complete'] = complete
+
+	with open('todos.json', 'w') as file:
+		file.write(json.dumps(todos, indent=4, separators=(',', ': ')))
+
+	return Response(json.dumps(todos),
+					mimetype='application/json',
+					headers={'Cache-Control': 'no-cache', 'Access-Control-Allow-Origin': '*'})
+
+
 @app.route('/api/todos/<id>', methods=['DELETE'])
 def delete_todo(id):
 	with open('todos.json', 'r') as file:

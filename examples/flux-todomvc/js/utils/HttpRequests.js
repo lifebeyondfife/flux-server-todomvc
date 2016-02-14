@@ -23,8 +23,6 @@ var HttpRequests = {
 		options.uri += '/' + id;
 		options.body = {text: text, id: id, complete: complete};
 
-		console.log(options);
-
 		rp(options).
 			then(function(parsedBody) {
 				callback(parsedBody);
@@ -45,6 +43,21 @@ var HttpRequests = {
 			}).
 			catch(function(err) {
 				console.log('Error getting todos from server.');
+			});
+	},
+
+	toggle: function(callback) {
+		var options = apiOptions();
+		options.method = 'POST';
+		options.uri += '/toggle';
+
+		rp(options).
+			then(function(parsedBody) {
+				callback(parsedBody);
+			}).
+			catch(function(err) {
+				console.log('Error toggling todos.');
+				console.log(err);
 			});
 	}
 };
