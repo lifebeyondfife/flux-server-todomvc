@@ -39,7 +39,7 @@ var TodoActions = {
 			});
 		};
 
-		TodoApi.postTodo(dispatcher, id, text);
+		TodoApi.createTodo(dispatcher, id, text);
 	},
 
   /**
@@ -55,7 +55,7 @@ var TodoActions = {
 			});
 		};
 
-		TodoApi.putTodo(dispatcher, id, text, complete);
+		TodoApi.updateTodo(dispatcher, id, text, complete);
 	},
 
   /**
@@ -75,7 +75,7 @@ var TodoActions = {
 			});
 		};
 
-		TodoApi.putTodo(dispatcher, id, todo.text, !todo.complete);
+		TodoApi.updateTodo(dispatcher, id, todo.text, !todo.complete);
 	},
 
   /**

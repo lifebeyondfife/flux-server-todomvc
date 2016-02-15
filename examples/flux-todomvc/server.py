@@ -75,12 +75,12 @@ def delete_todo(id):
 					headers={'Cache-Control': 'no-cache', 'Access-Control-Allow-Origin': '*'})
 
 
-@app.route('/api/todos/delete_complete', methods=['DELETE'])
+@app.route('/api/todos/delete_complete', methods=['POST'])
 def delete_complete():
 	with open('todos.json', 'r') as file:
 		todos = json.loads(file.read())
 
-	todos = dict(filter(lambda kvp: not kvp[1].complete, todos.items()))
+	todos = dict(filter(lambda kvp: not kvp[1]['complete'], todos.items()))
 
 	with open('todos.json', 'w') as file:
 		file.write(json.dumps(todos, indent=4, separators=(',', ': ')))
