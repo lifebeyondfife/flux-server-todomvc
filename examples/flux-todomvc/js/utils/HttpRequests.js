@@ -25,7 +25,7 @@ var HttpRequests = {
 
 		rp(options).
 			then(function(parsedBody) {
-				callback(parsedBody);
+				callback();
 			}).
 			catch(function(err) {
 				console.log('Error sending todo "' + id + '".');
@@ -53,10 +53,40 @@ var HttpRequests = {
 
 		rp(options).
 			then(function(parsedBody) {
-				callback(parsedBody);
+				callback();
 			}).
 			catch(function(err) {
 				console.log('Error toggling todos.');
+				console.log(err);
+			});
+	},
+
+	toggle: function(callback) {
+		var options = apiOptions();
+		options.method = 'POST';
+		options.uri += '/deleteCompleted';
+
+		rp(options).
+			then(function(parsedBody) {
+				callback();
+			}).
+			catch(function(err) {
+				console.log('Error toggling todos.');
+				console.log(err);
+			});
+	},
+
+	delete: function(callback, id) {
+		var options = apiOptions();
+		options.method = 'DELETE';
+		options.uri += '/' + id;
+
+		rp(options).
+			then(function(parsedBody) {
+				callback();
+			}).
+			catch(function(err) {
+				console.log('Error deleting todo "' + id + '".');
 				console.log(err);
 			});
 	}

@@ -94,21 +94,29 @@ var TodoActions = {
   /**
    * @param  {string} id
    */
-  destroy: function(id) {
-    AppDispatcher.dispatch({
-      actionType: TodoConstants.TODO_DESTROY,
-      id: id
-    });
-  },
+	destroy: function(id) {
+		var dispatcher = function() {
+			AppDispatcher.dispatch({
+				actionType: TodoConstants.TODO_DESTROY,
+				id: id
+			});
+		};
+
+		TodoApi.deleteTodo(dispatcher, id);
+	},
 
   /**
    * Delete all the completed ToDos
    */
-  destroyCompleted: function() {
-    AppDispatcher.dispatch({
-      actionType: TodoConstants.TODO_DESTROY_COMPLETED
-    });
-  }
+	destroyCompleted: function() {
+		var dispatcher = function() {
+			AppDispatcher.dispatch({
+				actionType: TodoConstants.TODO_DESTROY_COMPLETED
+			});
+		};
+
+		TodoApi.deleteCompleted(dispatcher);
+	}
 
 };
 
