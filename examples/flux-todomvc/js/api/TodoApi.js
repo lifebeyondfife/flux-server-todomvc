@@ -12,6 +12,12 @@ var TodoApi = {
 	},
 	toggleTodos: function(dispatcher) {
 		HttpRequests.toggle(dispatcher);
+	},
+	deleteTodo: function(dispatcher, id) {
+		HttpRequests.delete(dispatcher, id);
+	},
+	deleteCompleted: function(dispatcher) {
+		HttpRequests.deleteCompleted(dispatcher);
 	}
 };
 
