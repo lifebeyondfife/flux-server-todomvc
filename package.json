@@ -1,81 +1,40 @@
 {
-  "name": "flux",
-  "version": "2.1.1",
-  "description": "An application architecture based on a unidirectional data flow",
-  "keywords": [
-    "flux",
-    "react",
-    "facebook",
-    "dispatcher"
-  ],
-  "homepage": "http://facebook.github.io/flux/",
-  "bugs": "https://github.com/facebook/flux/issues",
-  "files": [
-    "LICENSE",
-    "PATENTS",
-    "README.md",
-    "index.js",
-    "lib",
-    "utils.js",
-    "dist"
-  ],
-  "main": "index.js",
-  "scripts": {
-    "build": "gulp build",
-    "prepublish": "gulp publish",
-    "test": "NODE_ENV=test jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/facebook/flux"
-  },
-  "author": "Facebook",
-  "contributors": [
-    "Jing Chen <jingc@fb.com>",
-    "Bill Fisher <fisherwebdev@gmail.com>",
-    "Paul O'Shannessy <paul@oshannessy.com>",
-    "Kyle Davis <kyldvs@gmail.com>"
-  ],
-  "license": "BSD-3-Clause",
-  "devDependencies": {
-    "babel-core": "^5.8.22",
-    "babel-loader": "^5.3.2",
-    "del": "^2.2.0",
-    "fbjs-scripts": "^0.5.0",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^5.1.0",
-    "gulp-flatten": "^0.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-util": "^3.0.6",
-    "jest-cli": "^0.5.10",
-    "object-assign": "^4.0.1",
-    "run-sequence": "^1.1.0",
-    "vinyl-source-stream": "^1.0.0",
-    "webpack": "^1.11.0",
-    "webpack-stream": "^3.1.0"
-  },
+  "name": "todomvc-flux",
+  "version": "0.0.3",
+  "description": "Example Flux architecture.",
+  "repository": "https://github.com/facebook/flux",
+  "main": "js/app.js",
   "dependencies": {
-    "fbemitter": "^2.0.0",
-    "fbjs": "^0.6.1",
-    "immutable": "^3.7.4"
+    "classnames": "^2.1.3",
+    "cls-bluebird": "^1.0.1",
+    "flux": "^2.0.1",
+    "keymirror": "~0.1.0",
+    "object-assign": "^1.0.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.7"
+  },
+  "devDependencies": {
+    "browserify": "^6.2.0",
+    "envify": "^3.0.0",
+    "jest-cli": "^0.4.3",
+    "reactify": "^0.15.2",
+    "request-promise": "^2.0.0",
+    "uglify-js": "~2.4.15",
+    "watchify": "^2.1.1"
+  },
+  "scripts": {
+    "start": "watchify -o js/bundle.js -v -d js/app.js",
+    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > js/bundle.min.js",
+    "test": "jest"
+  },
+  "author": "Bill Fisher",
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify"
+    ]
   },
   "jest": {
-    "modulePathIgnorePatterns": [
-      "/lib/",
-      "/node_modules/"
-    ],
-    "persistModuleRegistryBetweenSpecs": true,
-    "preprocessorIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "rootDir": "",
-    "scriptPreprocessor": "scripts/jest/preprocessor.js",
-    "setupEnvScriptFile": "scripts/jest/environment.js",
-    "testPathDirs": [
-      "<rootDir>/src"
-    ],
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/(?!fbemitter)"
-    ]
+    "rootDir": "./js"
   }
 }
