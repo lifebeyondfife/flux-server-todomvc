@@ -1,33 +1,33 @@
 var HttpRequests = require('../utils/HttpRequests');
 
 var TodoApi = {
-	createTodo: function(dispatcher, id, text) {
+	createTodo: function(id, text) {
 		var data = {
 			id: id,
 			text: text,
 			complete: false
 		};
-		HttpRequests.request(dispatcher, 'POST', '/' + id, data);
+		return HttpRequests.request('POST', '/' + id, data);
 	},
-	updateTodo: function(dispatcher, id, text, complete) {
+	updateTodo: function(id, text, complete) {
 		var data = {
 			id: id,
 			text: text,
 			complete: complete
 		};
-		HttpRequests.request(dispatcher, 'PUT', '/' + id, data);
+		return HttpRequests.request('PUT', '/' + id, data);
 	},
-	getTodos: function(dispatcher) {
-		HttpRequests.request(dispatcher, 'GET', '');
+	getTodos: function() {
+		return HttpRequests.request('GET', '');
 	},
-	toggleTodos: function(dispatcher) {
-		HttpRequests.request(dispatcher, 'POST', '/toggle');
+	toggleTodos: function() {
+		return HttpRequests.request('POST', '/toggle');
 	},
-	deleteTodo: function(dispatcher, id) {
-		HttpRequests.request(dispatcher, 'DELETE', '/' + id);
+	deleteTodo: function(id) {
+		return HttpRequests.request('DELETE', '/' + id);
 	},
-	deleteCompleted: function(dispatcher) {
-		HttpRequests.request(dispatcher, 'POST', '/delete_complete');
+	deleteCompleted: function() {
+		return HttpRequests.request('POST', '/delete_complete');
 	}
 };
 

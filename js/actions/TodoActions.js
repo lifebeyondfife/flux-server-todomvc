@@ -15,14 +15,17 @@ var TodoApi = require('../api/TodoApi');
 
 var TodoActions = {
 	getAllTodos: function() {
-		var dispatcher = function(todos) {
-			AppDispatcher.dispatch({
-				actionType: TodoConstants.TODO_GET_ALL,
-				todos: todos
+		TodoApi.getTodos().
+			then(function(todos) {
+				AppDispatcher.dispatch({
+					actionType: TodoConstants.TODO_GET_ALL,
+					todos: todos
+				});
+			}).
+			catch(function(err) {
+				console.log('Error with getting todos.');
+				console.log(err);
 			});
-		};
-
-		TodoApi.getTodos(dispatcher);
 	},
 
   /**
@@ -31,15 +34,18 @@ var TodoActions = {
 	create: function(text) {
 		var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
-		var dispatcher = function() {
-			AppDispatcher.dispatch({
-				actionType: TodoConstants.TODO_CREATE,
-				id: id,
-				text: text
+		TodoApi.createTodo(id, text).
+			then(function() {
+				AppDispatcher.dispatch({
+					actionType: TodoConstants.TODO_CREATE,
+					id: id,
+					text: text
+				});
+			}).
+			catch(function(err) {
+				console.log('Error with creating todo.');
+				console.log(err);
 			});
-		};
-
-		TodoApi.createTodo(dispatcher, id, text);
 	},
 
   /**
@@ -47,15 +53,18 @@ var TodoActions = {
    * @param  {string} text
    */
 	updateText: function(id, text, complete) {
-		var dispatcher = function() {
-			AppDispatcher.dispatch({
-				actionType: TodoConstants.TODO_UPDATE_TEXT,
-				id: id,
-				text: text
+		TodoApi.updateTodo(id, text, complete).
+			then(function() {
+				AppDispatcher.dispatch({
+					actionType: TodoConstants.TODO_UPDATE_TEXT,
+					id: id,
+					text: text
+				});
+			}).
+			catch(function(err) {
+				console.log('Error with creating todo.');
+				console.log(err);
 			});
-		};
-
-		TodoApi.updateTodo(dispatcher, id, text, complete);
 	},
 
   /**
@@ -68,54 +77,66 @@ var TodoActions = {
 			TodoConstants.TODO_UNDO_COMPLETE :
 			TodoConstants.TODO_COMPLETE;
 
-		var dispatcher = function() {
-			AppDispatcher.dispatch({
-				actionType: actionType,
-				id: id
+		TodoApi.updateTodo(id, todo.text, !todo.complete).
+			then(function() {
+				AppDispatcher.dispatch({
+					actionType: actionType,
+					id: id
+				});
+			}).
+			catch(function(err) {
+				console.log('Error marking todo complete.');
+				console.log(err);
 			});
-		};
-
-		TodoApi.updateTodo(dispatcher, id, todo.text, !todo.complete);
 	},
 
   /**
    * Mark all ToDos as complete
    */
 	toggleCompleteAll: function() {
-		var dispatcher = function() {
-			AppDispatcher.dispatch({
-				actionType: TodoConstants.TODO_TOGGLE_COMPLETE_ALL
+		TodoApi.toggleTodos().
+			then(function() {
+				AppDispatcher.dispatch({
+					actionType: TodoConstants.TODO_TOGGLE_COMPLETE_ALL
+				});
+			}).
+			catch(function(err) {
+				console.log('Error toggling todos.');
+				console.log(err);
 			});
-		};
-
-		TodoApi.toggleTodos(dispatcher);
 	},
 
   /**
    * @param  {string} id
    */
 	destroy: function(id) {
-		var dispatcher = function() {
-			AppDispatcher.dispatch({
-				actionType: TodoConstants.TODO_DESTROY,
-				id: id
+		TodoApi.deleteTodo(id).
+			then(function() {
+				AppDispatcher.dispatch({
+					actionType: TodoConstants.TODO_DESTROY,
+					id: id
+				});
+			}).
+			catch(function(err) {
+				console.log('Error deleting todo.');
+				console.log(err);
 			});
-		};
-
-		TodoApi.deleteTodo(dispatcher, id);
 	},
 
   /**
    * Delete all the completed ToDos
    */
 	destroyCompleted: function() {
-		var dispatcher = function() {
-			AppDispatcher.dispatch({
-				actionType: TodoConstants.TODO_DESTROY_COMPLETED
+		TodoApi.deleteCompleted().
+			then(function() {
+				AppDispatcher.dispatch({
+					actionType: TodoConstants.TODO_DESTROY_COMPLETED
+				});
+			}).
+			catch(function(err) {
+				console.log('Error deleting completed todos.');
+				console.log(err);
 			});
-		};
-
-		TodoApi.deleteCompleted(dispatcher);
 	}
 
 };

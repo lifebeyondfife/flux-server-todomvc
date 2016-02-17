@@ -9,7 +9,7 @@ var apiOptions = function() {
 };
 
 var HttpRequests = {
-	request: function(callback, method, endpoint, data) {
+	request: function(method, endpoint, data) {
 		var options = apiOptions();
 		options.method = method;
 		options.uri += endpoint;
@@ -18,14 +18,7 @@ var HttpRequests = {
 			options.body = data;
 		}
 
-		rp(options).
-			then(function(parsedBody) {
-				callback(parsedBody);
-			}).
-			catch(function(err) {
-				console.log('Error with http request.');
-				console.log(err);
-			});
+		return rp(options);
 	}
 };
 
