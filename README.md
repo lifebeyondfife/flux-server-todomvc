@@ -9,7 +9,7 @@ This is what a running Flux TodoMVC example looks like:
 
 The original repo this project was forked from can be found here: https://github.com/facebook/flux/tree/master/examples/flux-todomvc
 
-So what is the purpose of this fork? Quite simply I couldn't find a simple, React Flux example that followed Facebook's initial examples but communicated with server side via a RESTful API.
+So what is the purpose of this fork? Quite simply I couldn't find a simple, React Flux example that followed Facebook's initial examples but communicated with server side code via a RESTful API.
 
 The Flux pattern suggests that this should be done in the Action creators, but no example showed how to do so. This repo is an example of a small client and server app that is built with React components and adheres to the Flux architecture.
 
