@@ -13,6 +13,8 @@ So what is the purpose of this fork? Quite simply I couldn't find a simple, Reac
 
 The Flux pattern suggests that this should be done in the Action creators, but no example showed how to do so. This repo is an example of a small client and server app that is built with React components and adheres to the Flux architecture.
 
+For a real project, I recommend using the [Redux](http://redux.js.org/) library which builds upon Facebook's Flux pattern, and write ES6 code with the Babel transpiler. However, for a teaching example, this keeps with the simple flux library and aims to avoid any complex dependencies. This project uses webpack to build the minified JavaScript bundle.
+
 ## Running
 
 You must have [npm](https://www.npmjs.org/) installed on your computer.
