@@ -10,7 +10,7 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var TodoActions = require('../actions/TodoActions');
-var TodoTextInput = require('./TodoTextInput.react');
+var TodoTextInput = require('./TodoTextInput');
 
 var classNames = require('classnames');
 

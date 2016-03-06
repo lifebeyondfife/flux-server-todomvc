@@ -10,7 +10,7 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var TodoActions = require('../actions/TodoActions');
-var TodoItem = require('./TodoItem.react');
+var TodoItem = require('./TodoItem');
 
 var MainSection = React.createClass({
 
