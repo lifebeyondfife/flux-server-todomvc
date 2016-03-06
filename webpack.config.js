@@ -1,8 +1,10 @@
+var webpack = require('webpack');
+
 module.exports = {
 	entry: "./js/app.jsx",
 	output: {
 		path: __dirname,
-		filename: "bundle.js"
+		filename: "bundle.min.js"
 	},
 	module: {
 		loaders: [
@@ -16,9 +18,9 @@ module.exports = {
 			}
 		]
 	},
-	externals: {
-		'react': 'React'
-	},
+	plugins: [
+		new webpack.optimize.UglifyJsPlugin({minimize: true})
+	],
 	resolve: {
 		extensions: ['', '.js', '.jsx']
 	}

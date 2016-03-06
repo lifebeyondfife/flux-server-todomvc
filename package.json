@@ -18,9 +18,7 @@
   "homepage": "https://github.com/lifebeyondfife/flux-todomvc#readme",
   "dependencies": {
     "classnames": "^2.2.3",
-    "events": "^1.1.0",
     "flux": "^2.1.1",
-    "fs": "0.0.2",
     "keymirror": "^0.1.1",
     "object-assign": "^4.0.1",
     "promise": "^7.1.1",
@@ -30,6 +28,7 @@
   "devDependencies": {
     "css-loader": "^0.23.1",
     "jsx-loader": "^0.13.2",
-    "style-loader": "^0.13.0"
+    "style-loader": "^0.13.0",
+    "uglify": "^0.1.5"
   }
 }
