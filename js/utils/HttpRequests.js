@@ -25,14 +25,19 @@ var HttpRequests = {
 		}
 
 		return new Promise(function(fulfill, reject) {
-			var httpReq = http.request(options, function(block) {
+			var httpReq = http.request(options, function(response) {
 				var body = '';
 
-				block.on('data', function(chunk) {
+				if (response.statusCode >= 400) {
+					reject(error);
+					return;
+				}
+
+				response.on('data', function(chunk) {
 					body += chunk;
 				});
 
-				block.on('end', function() {
+				response.on('end', function() {
 					fulfill(JSON.parse(body));
 				});
 			});
