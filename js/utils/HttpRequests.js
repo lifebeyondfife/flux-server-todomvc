@@ -1,24 +1,49 @@
-var rp = require('request-promise');
+var Promise = require('promise');
+var http = require('http');
 var TodoConfig = require('../constants/TodoConfig');
 
-var apiOptions = function() {
+var apiOptions = function(method, endpoint) {
 	return {
-		uri: 'http://' + TodoConfig.HOST + ':' + TodoConfig.PORT + TodoConfig.PATH,
-		json: true
+		hostname: TodoConfig.HOST,
+		port: TodoConfig.PORT,
+		path: TodoConfig.PATH + endpoint,
+		method: method,
+		headers: {
+			'Content-type': 'application/json'
+		}
 	};
 };
 
 var HttpRequests = {
 	request: function(method, endpoint, data) {
-		var options = apiOptions();
-		options.method = method;
-		options.uri += endpoint;
+		var options = apiOptions(method, endpoint);
+		var postData = '';
 
 		if (data) {
-			options.body = data;
+			var postData = JSON.stringify(data);
+			options.headers['Content-Length'] = postData.length;
 		}
 
-		return rp(options);
+		return new Promise(function(fulfill, reject) {
+			var httpReq = http.request(options, function(block) {
+				var body = '';
+
+				block.on('data', function(chunk) {
+					body += chunk;
+				});
+
+				block.on('end', function() {
+					fulfill(JSON.parse(body));
+				});
+			});
+
+			httpReq.on('error', function(error) {
+				reject(error);
+			});
+
+			httpReq.write(postData);
+			httpReq.end();
+		});
 	}
 };
 
